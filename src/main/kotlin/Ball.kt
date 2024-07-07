@@ -1,2 +1,1 @@
-class Ball {
-}
+class Ball(var x: Double, var y: Double, var mass: Double)
