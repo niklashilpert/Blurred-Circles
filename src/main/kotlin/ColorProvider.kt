@@ -37,9 +37,7 @@ class ColorProvider {
     /**
      * Determines the color of the pixel at x and y by using the heat function's result. If 'invert' is true, the color is inverted.
      */
-    fun getColorAt(x: Double, y: Double, heatFunction: (Double, Double) -> Double, invert: Boolean): Color {
-        val heatValue = heatFunction(x, y)
-
+    fun getColor(heatValue: Double, invert: Boolean): Color {
         val color = if (heatValue > blurThreshold) {
             setAlpha(positiveHeatColor, heatValue)
         } else if (heatValue < -blurThreshold) {
@@ -47,7 +45,6 @@ class ColorProvider {
         } else {
             setAlpha(backgroundColor, 0.0)
         }
-
 
         return if (invert) {
             invert(color)

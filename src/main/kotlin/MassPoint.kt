@@ -1,0 +1,1 @@
+class MassPoint(var x: Double, var y: Double, var mass: Double)
