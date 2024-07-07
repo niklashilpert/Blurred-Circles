@@ -1,6 +1,5 @@
 import java.awt.Color
 import kotlin.math.abs
-import kotlin.math.roundToInt
 
 class ColorProvider {
     private val backgroundColor: Color get() = Color(0, 0, 0)
@@ -10,9 +9,7 @@ class ColorProvider {
     private val blurThreshold = 0.5
     private val solidThreshold = 1.4
 
-    /**
-     * If the heat value is above the blur threshold but not above the solid threshold, the
-     */
+
     private fun calculateAlpha(heat: Double): Double {
         val absHeat = abs(heat)
         return if (absHeat in blurThreshold..solidThreshold) {
@@ -43,14 +40,14 @@ class ColorProvider {
     fun getColorAt(x: Double, y: Double, heatFunction: (Double, Double) -> Double, invert: Boolean): Color {
         val heatValue = heatFunction(x, y)
 
-        var color = if (heatValue > blurThreshold) {
+        val color = if (heatValue > blurThreshold) {
             setAlpha(positiveHeatColor, heatValue)
         } else if (heatValue < -blurThreshold) {
             setAlpha(negativeHeatColor, heatValue)
         } else {
             setAlpha(backgroundColor, 0.0)
         }
-       
+
 
         return if (invert) {
             invert(color)
